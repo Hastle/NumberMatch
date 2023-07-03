@@ -5017,6 +5017,7 @@ button {
   outline-style: none;
   border: none;
   cursor: pointer;
+  font-family: "RobotoRegular";
 }
 
 button:hover {
@@ -5043,18 +5044,12 @@ i {
 }
 
 h3 {
+  display: inline-block;
   font-family: "RobotoRegular";
 }
 
 /*==========  General  ==========*/
 .game-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   border-radius: 10px;
   -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1019607843);
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1019607843);
@@ -5070,6 +5065,12 @@ h3 {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   max-width: 470px;
+}
+
+#number-task {
+  display: inline-block;
+  font-size: 20px;
+  font-family: "RobotoRegular";
 }
 
 .number {

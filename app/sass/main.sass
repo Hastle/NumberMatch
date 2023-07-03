@@ -41,6 +41,7 @@ button
 	outline-style: none
 	border: none
 	cursor: pointer
+	+regular
 button:hover
 	background-color: transparent
 	outline-style: none
@@ -55,11 +56,10 @@ button:focus
 i
 	vertical-align: middle
 h3
+	display: inline-block
 	+regular
 /*==========  General  ==========*/
 .game-container
-	display: flex
-	flex-direction: column
 	+b-radius
 	+shadow
 	margin: 100px 0
@@ -69,6 +69,10 @@ h3
 	display: flex
 	flex-wrap: wrap
 	max-width: 470px
+#number-task
+	display: inline-block
+	font-size: 20px
+	+regular
 .number
 	display: inline-flex
 	color: $white
