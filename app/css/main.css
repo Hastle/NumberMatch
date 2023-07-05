@@ -5043,6 +5043,10 @@ i {
   vertical-align: middle;
 }
 
+p {
+  font-family: "RobotoRegular";
+}
+
 h3 {
   display: inline-block;
   font-family: "RobotoRegular";
@@ -5050,12 +5054,41 @@ h3 {
 
 /*==========  General  ==========*/
 .game-container {
+  position: relative;
   border-radius: 10px;
   -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1019607843);
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1019607843);
   margin: 100px 0;
   padding: 50px;
   background-color: #FFF;
+}
+
+.overlay {
+  position: relative;
+}
+.overlay::after {
+  content: var(--content);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 15;
+  font-family: "Robotobold";
+  color: #222;
+  font-size: 40px;
+}
+.overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  -webkit-backdrop-filter: blur(30px);
+          backdrop-filter: blur(30px);
 }
 
 #action-area {
@@ -5089,6 +5122,21 @@ h3 {
   width: 140px;
   margin-top: 10px;
   margin-left: 10px;
+}
+
+.infobar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  font-size: 12px;
+}
+.infobar span {
+  font-family: "RobotoRegular";
+}
+.infobar p {
+  display: inline-block;
+  margin: 0;
 }
 
 /*==========  Media  ==========*/
