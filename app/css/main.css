@@ -5076,7 +5076,7 @@ h3 {
           transform: translate(-50%, -50%);
   z-index: 15;
   font-family: "Robotobold";
-  color: #222;
+  color: #FFF;
   font-size: 40px;
 }
 .overlay::before {
