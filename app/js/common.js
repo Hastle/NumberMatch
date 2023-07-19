@@ -45,7 +45,7 @@ const animations = [
 
 for (let i = 0; i < 6; i++) {
 	const button = document.createElement("button");
-	button.classList.add("number", "animated", "infinite");
+	button.classList.add("number");
 	actionArea.appendChild(button);
 }
 
@@ -57,9 +57,14 @@ function setNumbers() {
 		button.textContent = randomNumber;
 		const randomColorIndex = Math.floor(Math.random() * colors.length);
 		button.style.backgroundColor = colors[randomColorIndex];
-		button.classList.remove(...animations);
-		const randomAnimationClass = animations[Math.floor(Math.random() * animations.length)];
-		button.classList.add(randomAnimationClass);
+		const isAnimated = Math.random() < 0.5;
+		if (isAnimated) {
+			button.classList.add("animated", "infinite");
+			const randomAnimationClass = animations[Math.floor(Math.random() * animations.length)];
+			button.classList.add(randomAnimationClass);
+		} else {
+			button.classList.remove("animated", "infinite", ...animations);
+		}
 	});
 	const randomButtonIndex = Math.floor(Math.random() * numberButtons.length);
 	const randomButton = numberButtons[randomButtonIndex];
