@@ -1,18 +1,14 @@
 $dark: #222
 $grey: #00000008
 $white: #FFF
-$yellow: #FFDA32
-$pink: #EA2768
-$blue: #4174B3
-$violet: #5A4D88
-$vinous: #534856
-$cherry: #871008
-$pink: #F5D5D6
-$cian: #058F96
+$right: #00FF00
+$wrong: #FF0000
 
 
 =shadow
 	box-shadow: 0 5px 20px #0000001a
+=text-shadow
+	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5)
 =b-radius
 	border-radius: 10px
 =flow
@@ -23,3 +19,13 @@ $cian: #058F96
 	font-family: "Robotobold"
 =lig
 	font-family: "RobotoLight"
+
+=fadeInOut
+  @keyframes fadeInOut
+    0%
+      opacity: 0
+    50%
+      opacity: 1
+    100%
+      opacity: 0
+  animation: fadeInOut .6s linear
