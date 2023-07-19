@@ -11,23 +11,41 @@ const allTime = 60;
 let remainingTime = allTime;
 let totalAnswersCount = 0;
 let rightAnswersCount = 0;
+let iconElement = null;
 
 const colors = [
-	'#FF4136',
-	'#FF851B',
-	'#FFDC00',
-	'#2ECC40',
-	'#0074D9',
-	'#39CCCC',
-	'#B10DC9',
-	'#FF0080',
-	'#F012BE',
-	'#85144b' 
+	'#FF5733',
+	'#FFC300',
+	'#FF6363',
+	'#FF8C00',
+	'#FFB6C1',
+	'#FF1493',
+	'#7FFFD4',
+	'#00FF7F',
+	'#00CED1',
+	'#00BFFF',
+	'#4B0082',
+	'#9932CC',
+	'#800080',
+	'#7B68EE',
+	'#4682B4',
+	'#00FA9A',
+	'#ADFF2F',
+	'#FFD700',
+	'#FFA500',
+	'#A0522D' 
+];
+
+const animations = [
+	'pulse',
+	'tada',
+	'fadeIn',
+	'bounceOut'
 ];
 
 for (let i = 0; i < 6; i++) {
 	const button = document.createElement("button");
-	button.classList.add("number");
+	button.classList.add("number", "animated", "infinite");
 	actionArea.appendChild(button);
 }
 
@@ -39,6 +57,9 @@ function setNumbers() {
 		button.textContent = randomNumber;
 		const randomColorIndex = Math.floor(Math.random() * colors.length);
 		button.style.backgroundColor = colors[randomColorIndex];
+		button.classList.remove(...animations);
+		const randomAnimationClass = animations[Math.floor(Math.random() * animations.length)];
+		button.classList.add(randomAnimationClass);
 	});
 	const randomButtonIndex = Math.floor(Math.random() * numberButtons.length);
 	const randomButton = numberButtons[randomButtonIndex];
@@ -53,14 +74,28 @@ function formatTime(seconds) {
 	return `${formattedMinutes}:${formattedSeconds}`;
 }
 
+function showAccuracyResult(isCorrect) {
+	const iconClass = isCorrect ? "fas fa-check" : "fas fa-times";
+	if (!iconElement) {
+		iconElement = document.createElement("i");
+		actionArea.appendChild(iconElement);
+	}
+	iconElement.classList = iconClass;
+
+	setTimeout(() => {
+		actionArea.removeChild(iconElement);
+		iconElement = null;
+	}, 600);
+}
+
 function numberHandler() {
 	numberButtons.forEach(button => {
 		button.addEventListener("click", () => {
-			if (button.textContent === numberTask.textContent & isStarted) {
+			if (button.textContent === numberTask.textContent && isStarted) {
 				rightAnswersCount++;
-				console.log("Верно");
+				showAccuracyResult(true);
 			} else {
-				console.log("Неверно");
+				showAccuracyResult(false);
 			}
 			totalAnswersElement.textContent = totalAnswersCount;
 			rightAnswersElement.textContent = rightAnswersCount;
@@ -116,9 +151,9 @@ function initGame() {
 	setNumbers();
 	totalAnswersElement.textContent = totalAnswersCount;
 	rightAnswersElement.textContent = rightAnswersCount;
+	timerDisplay.textContent = formatTime(remainingTime);
 	startHandler();
 	numberHandler();
-	timerDisplay.textContent = formatTime(remainingTime);
 }
 
 initGame();
