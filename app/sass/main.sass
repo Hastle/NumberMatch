@@ -68,6 +68,7 @@ h3
 	margin: 100px 0
 	padding: 50px
 	background-color: $white
+	max-width: 550px
 .overlay
 	position: relative
 	&::after
@@ -80,7 +81,6 @@ h3
 		+bold
 		color: $white
 		font-size: 40px
-		// backdrop-filter: blur(30px)
 	&::before
 		content: ''
 		position: absolute
@@ -90,10 +90,25 @@ h3
 		height: 100%
 		z-index: 10
 		backdrop-filter: blur(30px)
+
+i.fa-check, i.fa-times
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%, -50%)
+	font-size: 40px
+	+text-shadow
+i.fa-check
+	color: $right
+i.fa-times
+	color: $wrong
 #action-area
 	display: flex
 	flex-wrap: wrap
-	max-width: 470px
+	position: relative
+	i
+		+fadeInOut
+		+flow
 #number-task
 	display: inline-block
 	font-size: 20px
@@ -106,8 +121,7 @@ h3
 	font-size: 20px
 	height: 80px
 	width: 140px
-	margin-top: 10px
-	margin-left: 10px
+	margin: 5px
 .infobar
 	position: absolute
 	top: 0

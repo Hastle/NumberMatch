@@ -5061,6 +5061,7 @@ h3 {
   margin: 100px 0;
   padding: 50px;
   background-color: #FFF;
+  max-width: 550px;
 }
 
 .overlay {
@@ -5091,13 +5092,32 @@ h3 {
           backdrop-filter: blur(30px);
 }
 
+i.fa-check, i.fa-times {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 40px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+i.fa-check {
+  color: #00FF00;
+}
+
+i.fa-times {
+  color: #FF0000;
+}
+
 #action-area {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  max-width: 470px;
+  position: relative;
 }
 
 #number-task {
@@ -5120,8 +5140,7 @@ h3 {
   font-size: 20px;
   height: 80px;
   width: 140px;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin: 5px;
 }
 
 .infobar {
