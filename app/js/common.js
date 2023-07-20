@@ -5,6 +5,7 @@ const numberTask = document.getElementById("number-task");
 const totalAnswersElement = document.getElementById("total-answers");
 const rightAnswersElement = document.getElementById("right-answers");
 const timerDisplay = document.getElementById("timer-display");
+
 let isStarted = false;
 let timer;
 const allTime = 60;
