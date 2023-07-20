@@ -11,6 +11,7 @@ const allTime = 60;
 let remainingTime = allTime;
 let totalAnswersCount = 0;
 let rightAnswersCount = 0;
+let rightAnswersStreakCount = 0;
 let iconElement = null;
 
 const colors = [
@@ -51,17 +52,21 @@ for (let i = 0; i < 6; i++) {
 
 const numberButtons = document.querySelectorAll('.number');
 
-function setNumbers() {
+function setNumbers(rightAnswersStreakCount) {
 	numberButtons.forEach(button => {
 		const randomNumber = Math.floor(Math.random() * 100);
 		button.textContent = randomNumber;
 		const randomColorIndex = Math.floor(Math.random() * colors.length);
 		button.style.backgroundColor = colors[randomColorIndex];
-		const isAnimated = Math.random() < 0.5;
-		if (isAnimated) {
-			button.classList.add("animated", "infinite");
-			const randomAnimationClass = animations[Math.floor(Math.random() * animations.length)];
-			button.classList.add(randomAnimationClass);
+		if (rightAnswersStreakCount > 3) {
+			const isAnimated = Math.random() < 0.5;
+			if (isAnimated) {
+				button.classList.add("animated", "infinite");
+				const randomAnimationClass = animations[Math.floor(Math.random() * animations.length)];
+				button.classList.add(randomAnimationClass);
+			} else {
+				button.classList.remove("animated", "infinite", ...animations);
+			}
 		} else {
 			button.classList.remove("animated", "infinite", ...animations);
 		}
@@ -97,15 +102,17 @@ function numberHandler() {
 	numberButtons.forEach(button => {
 		button.addEventListener("click", () => {
 			if (button.textContent === numberTask.textContent && isStarted) {
+				rightAnswersStreakCount++
 				rightAnswersCount++;
 				showAccuracyResult(true);
 			} else {
+				rightAnswersStreakCount = 0;
 				showAccuracyResult(false);
 			}
 			totalAnswersElement.textContent = totalAnswersCount;
 			rightAnswersElement.textContent = rightAnswersCount;
 			totalAnswersCount++;
-			setNumbers();
+			setNumbers(rightAnswersStreakCount);
 		});
 	});
 }
@@ -116,7 +123,6 @@ function startTimer() {
 		timerDisplay.textContent = formatTime(remainingTime);
 		if (remainingTime === 0) {
 			clearInterval(timer);
-			console.log("Таймер завершен");
 			isStarted = false;
 		}
 	}, 1000);
