@@ -52,12 +52,13 @@ for (let i = 0; i < 6; i++) {
 
 const numberButtons = document.querySelectorAll('.number');
 
-function setNumbers(rightAnswersStreakCount) {
+function setNumbers() {
 	numberButtons.forEach(button => {
 		const randomNumber = Math.floor(Math.random() * 100);
 		button.textContent = randomNumber;
 		const randomColorIndex = Math.floor(Math.random() * colors.length);
 		button.style.backgroundColor = colors[randomColorIndex];
+		button.classList.remove("animated", "infinite", ...animations);
 		if (rightAnswersStreakCount > 3) {
 			const isAnimated = Math.random() < 0.5;
 			if (isAnimated) {
@@ -67,13 +68,14 @@ function setNumbers(rightAnswersStreakCount) {
 			} else {
 				button.classList.remove("animated", "infinite", ...animations);
 			}
-		} else {
-			button.classList.remove("animated", "infinite", ...animations);
 		}
 	});
 	const randomButtonIndex = Math.floor(Math.random() * numberButtons.length);
 	const randomButton = numberButtons[randomButtonIndex];
 	numberTask.textContent = randomButton.textContent;
+	totalAnswersElement.textContent = totalAnswersCount;
+	rightAnswersElement.textContent = rightAnswersCount;
+	timerDisplay.textContent = formatTime(remainingTime);
 }
 
 function formatTime(seconds) {
@@ -101,19 +103,53 @@ function showAccuracyResult(isCorrect) {
 function numberHandler() {
 	numberButtons.forEach(button => {
 		button.addEventListener("click", () => {
-			if (button.textContent === numberTask.textContent && isStarted) {
-				rightAnswersStreakCount++
-				rightAnswersCount++;
-				showAccuracyResult(true);
+			if (isStarted) {
+				if (button.textContent === numberTask.textContent) {
+					rightAnswersStreakCount++
+					rightAnswersCount++;
+					showAccuracyResult(true);
+				} else {
+					rightAnswersStreakCount = 0;
+					showAccuracyResult(false);
+				}
+				totalAnswersCount++;
 			} else {
-				rightAnswersStreakCount = 0;
-				showAccuracyResult(false);
+				startGame();
 			}
-			totalAnswersElement.textContent = totalAnswersCount;
-			rightAnswersElement.textContent = rightAnswersCount;
-			totalAnswersCount++;
-			setNumbers(rightAnswersStreakCount);
+			setNumbers();
 		});
+	});
+}
+
+function createReport(rightAnswersCount, totalAnswersCount) {
+	const report = document.createElement("div");
+	report.classList.add("report");
+	gameContainer.appendChild(report);
+
+	const resultParagraph = document.createElement("p");
+	resultParagraph.textContent = `Ваш результат: ${rightAnswersCount} из ${totalAnswersCount}`;
+	report.appendChild(resultParagraph);
+
+	let accuracy = 0;
+	if (totalAnswersCount !== 0) {
+		accuracy = (rightAnswersCount / totalAnswersCount) * 100;
+	}
+	const accuracyParagraph = document.createElement("p");
+	accuracyParagraph.textContent = `Точность: ${accuracy.toFixed(0)}%`;
+	report.appendChild(accuracyParagraph);
+
+	const startButton = document.createElement("button");
+	startButton.classList.add("start");
+	report.appendChild(startButton);
+
+	const iconAgain = document.createElement("i");
+	iconAgain.classList.add("fas", "fa-redo-alt");
+	startButton.appendChild(iconAgain);
+
+	startButton.insertAdjacentText('beforeend', 'Попробовать еще');
+	startButton.addEventListener("click", () => {
+		report.remove();
+		startGame();
 	});
 }
 
@@ -124,46 +160,45 @@ function startTimer() {
 		if (remainingTime === 0) {
 			clearInterval(timer);
 			isStarted = false;
+			createReport(rightAnswersCount, totalAnswersCount);
 		}
 	}, 1000);
 }
 
-function startHandler() {
-	numberButtons.forEach(button => {
-		button.addEventListener("click", () => {
-			if (!isStarted) {
-				gameContainer.classList.add('overlay');
-				const overlay = document.querySelector('.overlay');
-				totalAnswersCount = 0;
-				rightAnswersCount = 0;
-				let count = 3;
-				const countDown = setInterval(() => {
-					overlay.style.setProperty('--content', `"${count}"`);
-					count--;
-					if (count < 0) {
-						clearInterval(countDown);
-						overlay.style.setProperty('--content', '""');
-						setTimeout(() => {
-							gameContainer.classList.remove('overlay');
-							isStarted = true;
-							startTimer();
-							remainingTime = allTime;
-							timerDisplay.textContent = formatTime(remainingTime);
-						}, 100);
-					}
-				}, 1000);
-			}
+function startGame(){
+	if (!isStarted) {
+		gameContainer.classList.add('overlay');
+		const overlay = document.querySelector('.overlay');
+		totalAnswersCount = 0;
+		rightAnswersCount = 0;
+		rightAnswersStreakCount = 0;
+		totalAnswersElement.textContent = totalAnswersCount;
+		rightAnswersElement.textContent = rightAnswersCount;
+		numberButtons.forEach(button => {
+			button.classList.remove("animated", "infinite", ...animations);
 		});
-	});
+		let count = 3;
+		const countDown = setInterval(() => {
+			overlay.style.setProperty('--content', `"${count}"`);
+			count--;
+			if (count < 0) {
+				clearInterval(countDown);
+				overlay.style.setProperty('--content', '""');
+				setTimeout(() => {
+					gameContainer.classList.remove('overlay');
+					isStarted = true;
+					startTimer();
+					remainingTime = allTime;
+					timerDisplay.textContent = formatTime(remainingTime);
+				}, 100);
+			}
+		}, 1000);
+	}
 }
 
 
 function initGame() {
 	setNumbers();
-	totalAnswersElement.textContent = totalAnswersCount;
-	rightAnswersElement.textContent = rightAnswersCount;
-	timerDisplay.textContent = formatTime(remainingTime);
-	startHandler();
 	numberHandler();
 }
 
