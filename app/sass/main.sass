@@ -80,7 +80,7 @@ h3
 		z-index: 15
 		+bold
 		color: $white
-		font-size: 40px
+		font-size: 60px
 	&::before
 		content: ''
 		position: absolute
@@ -90,7 +90,30 @@ h3
 		height: 100%
 		z-index: 10
 		backdrop-filter: blur(30px)
-
+.report
+	position: absolute
+	top: 0
+	left: 0
+	height: 100%
+	width: 100%
+	padding: 50px
+	+b-radius
+	background-color: $white
+	.start
+		display: flex
+		padding: 20px
+		margin: 50px auto
+		border: 1px solid $violent
+		background: $violent
+		color: $white
+		+b-radius
+		+flow
+		i
+			margin-right: 10px
+		&:hover
+			background: $white
+			color: $violent
+			+flow
 i.fa-check, i.fa-times
 	position: absolute
 	top: 50%
@@ -108,7 +131,7 @@ i.fa-times
 	position: relative
 	i
 		+fadeInOut
-		+flow
+		animation: fadeInOut .7s linear
 #number-task
 	display: inline-block
 	font-size: 20px

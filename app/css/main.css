@@ -5078,7 +5078,7 @@ h3 {
   z-index: 15;
   font-family: "Robotobold";
   color: #FFF;
-  font-size: 40px;
+  font-size: 60px;
 }
 .overlay::before {
   content: "";
@@ -5090,6 +5090,39 @@ h3 {
   z-index: 10;
   -webkit-backdrop-filter: blur(30px);
           backdrop-filter: blur(30px);
+}
+
+.report {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: #FFF;
+}
+.report .start {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+  margin: 50px auto;
+  border: 1px solid #6933dc;
+  background: #6933dc;
+  color: #FFF;
+  border-radius: 10px;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+}
+.report .start i {
+  margin-right: 10px;
+}
+.report .start:hover {
+  background: #FFF;
+  color: #6933dc;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
 }
 
 i.fa-check, i.fa-times {
@@ -5118,6 +5151,32 @@ i.fa-times {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   position: relative;
+}
+#action-area i {
+  -webkit-animation: fadeInOut 0.7s linear;
+          animation: fadeInOut 0.7s linear;
+}
+@-webkit-keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 #number-task {
